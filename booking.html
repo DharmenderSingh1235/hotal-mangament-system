@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Management</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+}
+
+header{
+background:#003366;
+color:white;
+padding:20px;
+text-align:center;
+}
+
+.container{
+width:90%;
+margin:auto;
+margin-top:30px;
+}
+
+.form{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0px 5px 10px gray;
+margin-bottom:20px;
+}
+
+input,select{
+padding:10px;
+margin:10px;
+width:200px;
+}
+
+button{
+padding:10px 20px;
+background:#28a745;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#218838;
+}
+
+table{
+width:100%;
+background:white;
+border-collapse:collapse;
+}
+
+table,th,td{
+border:1px solid gray;
+}
+
+th{
+background:#003366;
+color:white;
+padding:10px;
+}
+
+td{
+padding:10px;
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>📅 Booking Management</h1>
+
+</header>
+
+<div class="container">
+
+<div class="form">
+
+<input
+type="text"
+id="customer"
+placeholder="Customer Name">
+
+<input
+type="number"
+id="room"
+placeholder="Room Number">
+
+<button onclick="bookRoom()">
+
+Book Room
+
+</button>
+
+</div>
+
+<table id="bookingTable">
+
+<tr>
+
+<th>Customer</th>
+
+<th>Room</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</table>
+
+</div>
+
+<script>
+
+let bookings=[];
+
+function bookRoom(){
+
+let customer=document.getElementById("customer").value;
+
+let room=document.getElementById("room").value;
+
+bookings.push({
+
+customer:customer,
+
+room:room,
+
+status:"Booked"
+
+});
+
+showBookings();
+
+}
+
+function showBookings(){
+
+let table=document.getElementById("bookingTable");
+
+table.innerHTML=`
+
+<tr>
+
+<th>Customer</th>
+
+<th>Room</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+`;
+
+bookings.forEach((b,index)=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${b.customer}</td>
+
+<td>${b.room}</td>
+
+<td>${b.status}</td>
+
+<td>
+
+<button onclick="cancelBooking(${index})">
+
+Cancel
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function cancelBooking(index){
+
+bookings.splice(index,1);
+
+showBookings();
+
+}
+
+</script>
+
+</body>
+</html>
